@@ -1,5 +1,14 @@
 
 function understudy(target) {
+	/*
+	 *   PERSONAL CONFIGURATION - START
+	 */
+	 	var debug_output = 'alert';
+
+	/*
+	 *   PERSONAL CONFIGURATION - END
+	 */
+
 	var status = {};
 	return {
 		"init": function() {
@@ -43,10 +52,19 @@ function understudy(target) {
 		},
 		"debug": function() {
 			console.log(status);
+		},
+		"captureBeforeClose": function () {
+			switch(debug_output) {
+				default:
+					var e = window.event;
+				    e.returnValue = JSON.stringify(status);
+				break;    
+			}
+			
+
+		    
 		}
 	}
-
-	
 	
 }
 
@@ -54,3 +72,5 @@ function understudy(target) {
 var understudy = understudy(window);
 
 understudy.init();
+
+window.onbeforeunload = understudy.captureBeforeClose;
