@@ -16,6 +16,13 @@ function understudy(target) {
 			status.hasUserScrolled = false;
 			status.isMobile = false;
 			status.elapsedTime = 0;
+
+			var date = new Date();
+			status.year = date.getFullYear();
+			status.month = date.getMonth();
+			status.date = date.getDate();
+			status.timeStarted = date.getTime(); 
+
 			understudy.debug();
 			understudy.monitor();
 		},
@@ -54,6 +61,8 @@ function understudy(target) {
 			console.log(status);
 		},
 		"captureBeforeClose": function () {
+			var date = new Date();
+			status.timeEnded = date.getTime();
 			switch(debug_output) {
 				default:
 					var e = window.event;
