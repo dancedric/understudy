@@ -66,9 +66,11 @@ function understudy(target) {
 			function monitorPosition(pos) {
 				var lat = pos.coords.latitude;
 				var lng = pos.coords.longitude;
+				var alt = pos.coords.altitude;
 				understudy.report('position', lat+', '+lng);
 				understudy.report('latitude', lat);
-				understudy.report('longitude', lng);		    		
+				understudy.report('longitude', lng);
+				understudy.report('altitude', alt);		    		
 		    }
 
 			if (navigator.geolocation) {
