@@ -67,7 +67,7 @@ function understudy(target) {
 				var lat = pos.coords.latitude;
 				var lng = pos.coords.longitude;
 				var alt = pos.coords.altitude;
-				understudy.report('position', lat+', '+lng);
+				understudy.report('location', lat+', '+lng);
 				understudy.report('latitude', lat);
 				understudy.report('longitude', lng);
 				understudy.report('altitude', alt);		    		
