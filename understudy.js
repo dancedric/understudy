@@ -45,12 +45,39 @@ function understudy(target) {
 				understudy.report('isMobile', true);
 			}
 
+			//getDevice
+			var UA = navigator.userAgent || navigator.vendor || window.opera;
+			if( UA.match( /iPad/i ) || UA.match( /iPhone/i ) || UA.match( /iPod/i ) ) {
+				understudy.report('isIOS',true);
+			}
+			else if( UA.match( /Android/i ) ) {
+			    understudy.report('isAndroid',true);
+			}
+
 			//elapsedTime
 			var seconds = 0;
 			setInterval(function() {
 				seconds++;
 				understudy.report('elapsedTime', seconds);
+				$('#debugWindow').html( JSON.stringify(status, null, 4) );
 			},1000);
+
+			//getLocation
+			function monitorPosition(pos) {
+				var lat = pos.coords.latitude;
+				var lng = pos.coords.longitude;
+				understudy.report('position', lat+', '+lng);
+				understudy.report('latitude', lat);
+				understudy.report('longitude', lng);		    		
+		    }
+
+			if (navigator.geolocation) {
+		        navigator.geolocation.watchPosition(monitorPosition);
+		    } else {
+		        understudy.report('location',false);
+		    }
+
+
 			
 		},
 		"report": function(k,v) {
@@ -59,6 +86,7 @@ function understudy(target) {
 		},
 		"debug": function() {
 			console.log(status);
+			$('#debugWindow').html( JSON.stringify(status, null, 4) );
 		},
 		"captureBeforeClose": function () {
 			var date = new Date();
